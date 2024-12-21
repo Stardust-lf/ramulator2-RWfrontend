@@ -1,10 +1,10 @@
 build/
 .vscode
 .idea/
-.cache/
+.cache/*
 *.cmake
 ext/
 ramulator2
 *.so
 autobuild.sh
-_deps
+_deps/*
