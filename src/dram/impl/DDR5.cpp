@@ -1,6 +1,6 @@
 #include "dram/dram.h"
 #include "dram/lambdas.h"
-
+#include "iostream"
 namespace Ramulator {
 
 class DDR5 : public IDRAM, public Implementation {
@@ -33,69 +33,14 @@ class DDR5 : public IDRAM, public Implementation {
       // {"DDR5_64Gb_x16", {64<<10,  16, {1, 1, 4, 4, 1<<18, 1<<10}}},
     };
     inline static const std::map<std::string, std::vector<int>> timing_presets = {
-      //   name         rate   nBL  nCL nRCD14ns   nRP14ns  nRAS32ns   nRC46ns   nWR  nRTP nCWL nPPD nCCDS nCCDS_WR nCCDS_WTR nCCDL nCCDL_WR5ns nCCDL_WTR nRRDS nRRDL nFAW nRFC1 nRFC2 nRFCsb nREFI nREFSBRD nRFM1 nRFM2 nRFMsb nDRFMab nDRFMsb nCS, tCK_ps
-      //   name         rate   nBL  nCL nRCD   nRP  nRAS   nRC   nWR  nRTP nCWL nPPD nCCDS nCCDS_WR nCCDS_WTR nCCDL nCCDL_WR nCCDL_WTR nRRDS nRRDL nFAW nRFC1 nRFC2 nRFCsb nREFI nREFSBRD nRFM1 nRFM2 nRFMsb nDRFMab nDRFMsb nCS, tCK_ps
-    //   {"DDR5_1600AN",  {6400,  32,  46,  46,   46,  102,  147,    96,   24,  44,  8,   32,    32,     44+32+8,   64,    64,    44+64+32,  32,   -1,   -1,  -1,   -1,   -1,    -1,     120,    -1,   -1,   -1,     -1,     -1,    8,  2224}},
-    //   {"DDR5_3200AN",  {6400,  16,  46,  46,   46,  102,  147,    96,   24,  44,  4,   16,    16,     44+16+8,   64,    64,    44+32+32,  16,   -1,   -1,  -1,   -1,   -1,    -1,     60,    -1,   -1,   -1,     -1,     -1,    5,  1250}},
-    //   //   name         rate   nBL  nCL nRCD  nRP  nRAS nRC  nWR  nRTP nCWL nPPD nCCDS nCCDS_WR nCCDS_WTR nCCDL nCCDL_WR    nCCDL_WTR  nRRDS nRRDL nFAW nRFC1 nRFC2 nRFCsb nREFI nREFSBRD nRFM1 nRFM2 nRFMsb nDRFMab nDRFMsb nCS, tCK_ps
-    //   {"DDR5_4800AN",  {6400,  10,  46,  46,  46,  102,  147,  96,  24,  44,  3,   11,   11,        44+11+8,  64,       64,    44+21+32,  11,   -1,   -1,   -1,  -1,   -1,    -1,     40, -1, -1, -1, -1, -1, 3, 553}},
-    //   {"DDR5_3200AN",  {6400,  16,  46,  46,   46,  102,  147,    96,   24,  44,  4,   16,    16,     44+16+8,   64,    64,    44+32+32,  16,   -1,   -1,  -1,   -1,   -1,    -1,     60,    -1,   -1,   -1,     -1,     -1,    5,  1250}},
-    //   //   name         rate   nBL  nCL nRCD  nRP  nRAS nRC  nWR  nRTP nCWL nPPD nCCDS nCCDS_WR nCCDS_WTR nCCDL nCCDL_WR    nCCDL_WTR  nRRDS nRRDL nFAW nRFC1 nRFC2 nRFCsb nREFI nREFSBRD nRFM1 nRFM2 nRFMsb nDRFMab nDRFMsb nCS, tCK_ps
-    //   {"DDR5_4800AN",  {6400,  10,  46,  46,  46,  102,  147,  96,  24,  44,  3,   11,   11,        44+11+8,  64,       64,    44+21+32,  11,   -1,   -1,   -1,  -1,   -1,    -1,     40, -1, -1, -1, -1, -1, 3, 553}},
-    //   {"DDR5_6400AN",   {6400, 8,  46,  46,  46,  102,  147,  96,  24,  44,  2,    8,    8,        44+8+8,  64,       64,    44+16+32,   8,   -1,   -1,   -1,  -1,   -1,    -1,     30, -1,   -1,   -1,     -1,     -1,    2,   312}},
-    //   {"DDR5_6400AN_BL",{6400, 24,  46,  46,  46,  102,  147,  96,  24,  44,  2,    8,    8,        44+12+8,  16,       64,    44+22+32,   8,   -1,   -1,   -1,  -1,   -1,    -1,     30,  -1,   -1,   -1,     -1,     -1,    2,   312}},
-    // };
-
-      //   name         rate   nBL  nCL nRCD   nRP  nRAS   nRC   nWR  nRTP nCWL nPPD nCCDS nCCDS_WR nCCDS_WTR nCCDL nCCDL_WR nCCDL_WTR nRRDS nRRDL nFAW nRFC1 nRFC2 nRFCsb nREFI nREFSBRD nRFM1 nRFM2 nRFMsb nDRFMab nDRFMsb nCS, tCK_ps
+     //   name         rate   nBL  nCL nRCD   nRP  nRAS   nRC   nWR  nRTP nCWL nPPD nCCDS nCCDS_WR nCCDS_WTR nCCDL nCCDL_WR nCCDL_WTR nRRDS nRRDL nFAW nRFC1 nRFC2 nRFCsb nREFI nREFSBRD nRFM1 nRFM2 nRFMsb nDRFMab nDRFMsb nCS, tCK_ps
       {"DDR5_1600AN",  {6400,  32,  46,  46,   46,  102,  147,    96,   24,  44,  8,   32,    32,     44+32+8,   16,    64,    44+64+32,  32,   -1,   -1,  -1,   -1,   -1,    -1,     120,    -1,   -1,   -1,     -1,     -1,    8,  2224}},
       {"DDR5_3200AN",  {6400,  16,  46,  46,   46,  102,  147,    96,   24,  44,  4,   16,    16,     44+16+8,   16,    64,    44+32+32,  16,   -1,   -1,  -1,   -1,   -1,    -1,     60,    -1,   -1,   -1,     -1,     -1,    5,  1250}},
-      //   name         rate   nBL  nCL nRCD  nRP  nRAS nRC  nWR  nRTP nCWL nPPD nCCDS nCCDS_WR nCCDS_WTR nCCDL nCCDL_WR    nCCDL_WTR  nRRDS nRRDL nFAW nRFC1 nRFC2 nRFCsb nREFI nREFSBRD nRFM1 nRFM2 nRFMsb nDRFMab nDRFMsb nCS, tCK_ps
+      //   name         rate   nBL  nCL nRCD  nRP  nRAS nRC  nWR  nRTP nCWL nPPD nCCDS nCCDS_WR nCCDS_WTR    nCCDL   nCCDL_WR    nCCDL_WTR  nRRDS nRRDL nFAW nRFC1 nRFC2 nRFCsb nREFI nREFSBRD nRFM1 nRFM2 nRFMsb nDRFMab nDRFMsb nCS, tCK_ps
       {"DDR5_4800AN",  {6400,  10,  46,  46,  46,  102,  147,  96,  24,  44,  3,   11,   11,        44+11+8,  16,       64,    44+21+32,  11,   -1,   -1,   -1,  -1,   -1,    -1,     40, -1, -1, -1, -1, -1, 3, 553}},
-      {"DDR5_6400AN",   {6400, 8,  46,  46,  46,  102,  147,  96,  24,  44,  2,    8,    8,        44+8+8,  16,       128,    44+16+32,   8,   -1,   -1,   -1,  -1,   -1,    -1,     30, -1,   -1,   -1,     -1,     -1,    2,   312}},
+      {"DDR5_6400AN",   {6400, 8,  46,  46,  46,  102,  147,  96,  24,  44,  2,    8,    8,        44+8+8,    16,       64,    44+16+32,   8,   -1,   -1,   -1,  -1,   -1,    -1,     30, -1,   -1,   -1,     -1,     -1,    2,   312}},
       {"DDR5_6400AN_BL",{6400, 24,  46,  46,  46,  102,  147,  96,  24,  44,  2,    8,    8,        44+12+8,  16,       64,    44+22+32,   8,   -1,   -1,   -1,  -1,   -1,    -1,     30,  -1,   -1,   -1,     -1,     -1,    2,   312}},
     };
-
-  //  inline static const std::map<std::string, std::vector<int>> timing_presets = {
-  //     //   name         rate   nBL  nCL nRCD   nRP  nRAS   nRC   nWR  nRTP nCWL nPPD nCCDS nCCDS_WR nCCDS_WTR nCCDL nCCDL_WR nCCDL_WTR nRRDS nRRDL nFAW nRFC1 nRFC2 nRFCsb nREFI nREFSBRD nRFM1 nRFM2 nRFMsb nDRFMab nDRFMsb nCS, tCK_ps
-  //     {"DDR5_3200AN",  {3200,   8,  24,  24,   24,   52,   75,   48,   12,  22,  2,    8,     8,     34,    8,     16,    46,   8,   -1,   -1,  -1,   -1,   -1,    -1,     30,    -1,   -1,   -1,     -1,     -1,    2,   625}},
-  //     {"DDR5_3200BN",  {3200,   8,  26,  26,   26,   52,   77,   48,   12,  24,  2,    8,     8,     36,    8,     16,    48,   8,   -1,   -1,  -1,   -1,   -1,    -1,     30,    -1,   -1,   -1,     -1,     -1,    2,   625}},
-  //     {"DDR5_3200C",   {3200,   8,  28,  28,   28,   52,   79,   48,   12,  26,  2,    8,     8,     38,    8,     16,    50,   8,   -1,   -1,  -1,   -1,   -1,    -1,     30,    -1,   -1,   -1,     -1,     -1,    2,   625}},
-      
-  //     {"DDR5_3600AN",   {3600,   8,  26,  26,   26,   52,   78,   48,   12,  24,  2,    8,     8,     36,    8,     16,    48,   8,   -1,   -1,  -1,   -1,   -1,    -1,     30,    -1,   -1,   -1,     -1,     -1,    2,   625}},
-  //     {"DDR5_3600BN",   {3600,   8,  30,  30,   30,   52,   82,   48,   12,  28,  2,    8,     8,     40,    8,     16,    52,   8,   -1,   -1,  -1,   -1,   -1,    -1,     30,    -1,   -1,   -1,     -1,     -1,    2,   625}},
-  //     {"DDR5_3600C",   {3600,   8,  32,  32,   32,   52,   84,   48,   12,  30,  2,    8,     8,     42,    8,     16,    54,   8,   -1,   -1,  -1,   -1,   -1,    -1,     30,    -1,   -1,   -1,     -1,     -1,    2,   625}},
-      
-  //     {"DDR5_4000AN",   {4000,   8,  28,  28,   28,   52,   20,   48,   12,  26,  2,    8,     8,     38,    8,     16,    50,   8,   -1,   -1,  -1,   -1,   -1,    -1,     30,    -1,   -1,   -1,     -1,     -1,    2,   500}},
-  //     {"DDR5_4000BN",   {4000,   8,  32,  32,   32,   52,   84,   48,   12,  30,  2,    8,     8,     42,    8,     16,    54,   8,   -1,   -1,  -1,   -1,   -1,    -1,     30,    -1,   -1,   -1,     -1,     -1,    2,   500}},
-  //     {"DDR5_4000C",   {4000,   8,  36,  35,   35,   52,   87,   48,   12,  34,  2,    8,     8,     46,    8,     16,    58,   8,   -1,   -1,  -1,   -1,   -1,    -1,     30,    -1,   -1,   -1,     -1,     -1,    2,   500}},
-      
-  //     {"DDR5_4400AN",   {4400,   8,  32,  32,   32,   52,   84,   48,   12,  30,  2,    8,     8,     42,    8,     16,    54,   8,   -1,   -1,  -1,   -1,   -1,    -1,     30,    -1,   -1,   -1,     -1,     -1,    2,   454}},
-  //     {"DDR5_4400BN",   {4400,   8,  36,  36,   36,   52,   88,   48,   12,  34,  2,    8,     8,     46,    8,     16,    58,   8,   -1,   -1,  -1,   -1,   -1,    -1,     30,    -1,   -1,   -1,     -1,     -1,    2,   454}},      
-  //     {"DDR5_4400C",   {4400,   8,  40,  39,   39,   52,   91,   48,   12,  38,  2,    8,     8,     50,    8,     16,    62,   8,   -1,   -1,  -1,   -1,   -1,    -1,     30,    -1,   -1,   -1,     -1,     -1,    2,   454}},
-      
-  //     {"DDR5_4800AN",   {4800,   8,  34,  34,   34,   52,   86,   48,   12,  32,  2,    8,     8,     44,    8,     16,    56,   8,   -1,   -1,  -1,   -1,   -1,    -1,     30,    -1,   -1,   -1,     -1,     -1,    2,   416}},
-  //     {"DDR5_4800BN",   {4800,   8,  40,  40,   40,   52,   92,   48,   12,  38,  2,    8,     8,     50,    8,     16,    62,   8,   -1,   -1,  -1,   -1,   -1,    -1,     30,    -1,   -1,   -1,     -1,     -1,    2,   416}},
-  //     {"DDR5_4800C",   {4800,   8,  42,  42,   42,   52,   94,   48,   12,  40,  2,    8,     8,     52,    8,     16,    64,   8,   -1,   -1,  -1,   -1,   -1,    -1,     30,    -1,   -1,   -1,     -1,     -1,    2,   416}},
-
-  //     {"DDR5_5200AN",   {5200,   8,  38,  38,   38,   52,   90,   48,   12,  36,  2,    8,     8,     48,    8,     16,    60,   8,   -1,   -1,  -1,   -1,   -1,    -1,     30,    -1,   -1,   -1,     -1,     -1,    2,   384}},
-  //     {"DDR5_5200BN",   {5200,   8,  42,  42,   42,   52,   94,   48,   12,  40,  2,    8,     8,     52,    8,     16,    64,   8,   -1,   -1,  -1,   -1,   -1,    -1,     30,    -1,   -1,   -1,     -1,     -1,    2,   384}},
-  //     {"DDR5_5200C",   {5200,   8,  46,  46,   46,   52,   98,   48,   12,  44,  2,    8,     8,     56,    8,     16,    68,   8,   -1,   -1,  -1,   -1,   -1,    -1,     30,    -1,   -1,   -1,     -1,     -1,    2,   384}},
-      
-  //     {"DDR5_5600AN",   {5600,   8,  40,  40,   40,   52,   92,   48,   12,  38,  2,    8,     8,     50,    8,     16,    62,   8,   -1,   -1,  -1,   -1,   -1,    -1,     30,    -1,   -1,   -1,     -1,     -1,    2,   357}},
-  //     {"DDR5_5600BN",   {5600,   8,  46,  46,   46,   52,   98,   48,   12,  44,  2,    8,     8,     56,    8,     16,    68,   8,   -1,   -1,  -1,   -1,   -1,    -1,     30,    -1,   -1,   -1,     -1,     -1,    2,   357}},
-  //     {"DDR5_5600C",   {5600,   8,  50,  49,   49,   52,   101,   48,   12,  48,  2,    8,     8,     60,    8,     16,    72,   8,   -1,   -1,  -1,   -1,   -1,    -1,     30,    -1,   -1,   -1,     -1,     -1,    2,   357}},
-      
-  //     {"DDR5_6000AN",   {6000,   8,  42,  42,   42,   52,   94,   48,   12,  40,  2,    8,     8,     52,    8,     16,    64,   8,   -1,   -1,  -1,   -1,   -1,    -1,     30,    -1,   -1,   -1,     -1,     -1,    2,   333}},
-  //     {"DDR5_6000BN",   {6000,   8,  48,  48,   48,   52,   100,   48,   12,  46,  2,    8,     8,     58,    8,     16,    70,   8,   -1,   -1,  -1,   -1,   -1,    -1,     30,    -1,   -1,   -1,     -1,     -1,    2,   333}},
-  //     {"DDR5_6000C",   {6000,   8,  54,  53,   53,   52,   105,   48,   12,  52,  2,    8,     8,     64,    8,     16,    76,   8,   -1,   -1,  -1,   -1,   -1,    -1,     30,    -1,   -1,   -1,     -1,     -1,    2,   333}},
-      
-  //     {"DDR5_6400AN",   {6400,   8,  46,  46,   46,   52,   98,   48,   12,  44,  2,    8,     8,     56,    8,     16,    68,   8,   -1,   -1,  -1,   -1,   -1,    -1,     30,    -1,   -1,   -1,     -1,     -1,    2,   312}},
-  //     {"DDR5_6400BN",   {6400,   8,  52,  52,   52,   52,   104,   48,   12,  50,  2,    8,     8,     62,    8,     16,    74,   8,   -1,   -1,  -1,   -1,   -1,    -1,     30,    -1,   -1,   -1,     -1,     -1,    2,   312}},
-  //     {"DDR5_6400C",   {6400,   8,  56,  56,   56,   52,   108,   48,   12,  54,  2,    8,     8,     66,    8,     16,    78,   8,   -1,   -1,  -1,   -1,   -1,    -1,     30,    -1,   -1,   -1,     -1,     -1,    2,   312}},
-  //   };
-
-
-
     inline static const std::map<std::string, std::vector<double>> voltage_presets = {
       //   name          VDD      VPP
       {"Default",       {1.1,     1.8}},
@@ -502,12 +447,12 @@ class DDR5 : public IDRAM, public Implementation {
       }
 
       // tCCD_L_WR2 (with RMW) table
-      constexpr int nCCD_L_WR2_TABLE[10] = {
-        128, 64, 56, 51, 46, 42, 39, 36, 34, 32
-      };
-      if (dq_id == 0) {
-        m_timing_vals("nCCDL_WR") = nCCD_L_WR2_TABLE[rate_id];
-      }
+      // constexpr int nCCD_L_WR2_TABLE[10] = {
+      //   64, 64, 64, 64, 64, 64, 64, 64, 64, 64
+      // };
+      // if (dq_id == 0) {
+        // m_timing_vals("nCCDL_WR") = nCCD_L_WR2_TABLE[rate_id];
+      // }
 
       // Refresh timings
       // tRFC table (unit is nanosecond!)
@@ -584,6 +529,10 @@ class DDR5 : public IDRAM, public Implementation {
       // Populate the timing constraints
       #define V(timing) (m_timing_vals(timing))
       auto all_commands = std::vector<std::string_view>(m_commands.begin(), m_commands.end());
+      std::cout << "nCCDS:" << V("nCCDS") << std::endl;
+      std::cout << "nCCDS_WR:" << V("nCCDS_WR") << std::endl;
+      std::cout << "nCCDL:" << V("nCCDL") << std::endl;
+      std::cout << "nCCDL_WR:" << V("nCCDL_WR") << std::endl;
       populate_timingcons(this, {
           /*** Channel ***/ 
           // Two-Cycle Commands
@@ -597,9 +546,10 @@ class DDR5 : public IDRAM, public Implementation {
           /*** Rank (or different BankGroup) ***/ 
           // CAS <-> CAS
           /// nCCDS is the minimal latency for column commands 
+          
           {.level = "rank", .preceding = {"RD", "RDA"}, .following = {"RD", "RDA"}, .latency = V("nCCDS")},
           {.level = "rank", .preceding = {"WR", "WRA"}, .following = {"WR", "WRA"}, .latency = V("nCCDS_WR")},
-          /// RD <-> WR, Minimum Read to Write, Assuming Read DQS Offset = 0, tRPST = 0.5, tWPRE = 2 tCK                          
+          /// RD <-> WR, Minimkkkkkkkkkkkum Read to Write, Assuming Read DQS Offset = 0, tRPST = 0.5, tWPRE = 2 tCK                          
           {.level = "rank", .preceding = {"RD", "RDA"}, .following = {"WR", "WRA"}, .latency = V("nCL") + V("nBL") + 2 - V("nCWL") + 2},   // nCCDS_RTW
           /// WR <-> RD, Minimum Read after Write
           {.level = "rank", .preceding = {"WR", "WRA"}, .following = {"RD", "RDA"}, .latency = V("nCCDS_WTR")},

@@ -1,5 +1,4 @@
 #include <filesystem>
-#include <iostream>
 #include <fstream>
 
 #include "frontend/frontend.h"
@@ -10,7 +9,7 @@ namespace Ramulator {
 namespace fs = std::filesystem;
 
 class LoadStoreTrace : public IFrontEnd, public Implementation {
-  RAMULATOR_REGISTER_IMPLEMENTATION(IFrontEnd, LoadStoreTrace, "LoadStoreTrace", "Load/Store memory address trace.")
+  RAMULATOR_REGISTER_IMPLEMENTATION(IFrontEnd, LoadStoreTrace, "StandardReadWriteTrace", "Load/Store memory address trace.")
 
   private:
     struct Trace {

@@ -1,4 +1,3 @@
-cd build
-cmake ..
+cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 make -j
-cp ./ramulator2 ../ramulator2
+./ramulator2 -f exp_configs/ordered_test_config.yaml
