@@ -185,7 +185,7 @@ class GenericDRAMController final : public IDRAMController, public Implementatio
       ReqBuffer::iterator req_it;
       ReqBuffer* buffer = nullptr;
       bool request_found = schedule_request(req_it, buffer);
-
+      
       // 2.1 Take row policy action
       m_rowpolicy->update(request_found, req_it);
 

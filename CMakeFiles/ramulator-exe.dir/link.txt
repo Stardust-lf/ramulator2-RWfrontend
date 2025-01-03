@@ -1,1 +1,0 @@
-/usr/bin/c++ -O3 -DNDEBUG "CMakeFiles/ramulator-exe.dir/src/main.cpp.o" -o ramulator2  -Wl,-rpath,/home/fan/projects/ramulator2-RWfrontend libramulator.so _deps/yaml-cpp-build/libyaml-cpp.a _deps/spdlog-build/libspdlog.a 

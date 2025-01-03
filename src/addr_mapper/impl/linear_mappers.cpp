@@ -1,5 +1,5 @@
 #include <vector>
-
+#include <iostream>
 #include "base/base.h"
 #include "dram/dram.h"
 #include "addr_mapper/addr_mapper.h"
@@ -46,7 +46,13 @@ class LinearMapperBase : public IAddrMapper {
 
       // Assume column is always the last level
       m_col_bits_idx = m_num_levels - 1;
-    }
+   // Print the address mapping levels and corresponding bit counts
+      static constexpr std::array<const char*, 6> level_names = {"channel", "rank", "bankgroup", "bank", "row", "column"};
+      std::cout << "Address Mapping Levels and Corresponding Bit Counts:\n";
+      for (size_t level = 0; level < m_num_levels; ++level) {
+          std::cout << fmt::format("{}: {} bits\n", level_names[level], m_addr_bits[level]);
+      }
+   }
 
 };
 

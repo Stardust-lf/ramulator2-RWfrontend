@@ -1,5 +1,6 @@
 import random
 
+ADDRESS_MASK = 0x0000Cfff
 
 def generate_ordered_address_trace(num_entries, rw_ratio, min_address, max_address, alignment):
     """
@@ -30,13 +31,13 @@ def generate_ordered_address_trace(num_entries, rw_ratio, min_address, max_addre
 
     # Generate sequential addresses for reads and writes
     read_addresses = [
-        addr * alignment for addr in range(
+        addr * alignment | ADDRESS_MASK for addr in range(
             (min_address + alignment - 1) // alignment,
             (min_address + alignment - 1) // alignment + total_read,
         )
     ]
     write_addresses = [
-        addr * alignment for addr in range(
+        addr * alignment | ADDRESS_MASK for addr in range(
             (min_address + alignment - 1) // alignment + total_read,
             (min_address + alignment - 1) // alignment + total_read + total_write,
         )
