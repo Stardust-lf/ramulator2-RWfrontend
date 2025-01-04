@@ -24,7 +24,7 @@ MemorySystem:
       BRC: 2
 
   Controller:
-    impl: Generic
+    impl: Scheduler_expo
     Scheduler:
       impl: FRFCFS
     RefreshManager:

@@ -1,0 +1,34 @@
+Frontend:
+  Translation:
+    impl: NoTranslation
+    max_addr: 2147483648
+  clock_ratio: 8
+  impl: StandardReadWriteTrace
+  num_expected_insts: 1000000
+  path: TPCH_traces/Q22/30452.trace
+MemorySystem:
+  AddrMapper:
+    impl: RoBaRaCoCh
+  Controller:
+    RefreshManager:
+      impl: AllBank
+    RowPolicy:
+      cap: 4
+      impl: OpenRowPolicy
+    Scheduler:
+      impl: FRFCFS
+    exe_trace_path: scheduled_traces/TPCH/Q22/30452.trace
+    impl: Scheduler_expo
+    plugins: null
+  DRAM:
+    RFM:
+      BRC: 2
+    impl: DDR5
+    org:
+      channel: 1
+      preset: DDR5_16Gb_x4
+      rank: 1
+    timing:
+      preset: DDR5_6400AN
+  clock_ratio: 3
+  impl: GenericDRAM
