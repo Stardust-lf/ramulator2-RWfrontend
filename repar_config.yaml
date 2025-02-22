@@ -5,7 +5,7 @@ Frontend:
   path: TPCH_traces/Q1/28740.trace
   Translation:
     impl: NoTranslation
-    max_addr: 2147483648
+    max_addr: 18446744073709551616
               
 
 MemorySystem:
@@ -24,7 +24,7 @@ MemorySystem:
       BRC: 2
 
   Controller:
-    impl: Scheduler_expo
+    impl: Generic
     Scheduler:
       impl: FRFCFS
     RefreshManager:
